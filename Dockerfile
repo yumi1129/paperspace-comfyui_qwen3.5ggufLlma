@@ -89,7 +89,7 @@ RUN python -m pip install \
 
 # ===== llama-cpp-python 0.3.32+cu128 =====
 # GitHub Release asset から取得
-ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui-qwen35-stable/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
+ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui_qwen3.5ggufLlma/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
 
 RUN curl -fL -o /tmp/llama_cpp_python.whl "$LLAMA_WHL_URL" && \
     python -m pip install /tmp/llama_cpp_python.whl && \
