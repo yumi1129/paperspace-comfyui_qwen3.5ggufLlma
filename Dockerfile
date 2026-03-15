@@ -88,12 +88,24 @@ RUN python -m pip install \
     imageio-ffmpeg
 
 # ===== llama-cpp-python 0.3.32+cu128 =====
-# GitHub Release asset から取得
-ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui_qwen3.5ggufLlma/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
+# ここはあなたの実際の Release asset URL に合わせてください
+ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui-qwen35-stable/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
+ARG LLAMA_WHL_FILE="llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
 
-RUN curl -fL -o /tmp/llama_cpp_python.whl "$LLAMA_WHL_URL" && \
-    python -m pip install /tmp/llama_cpp_python.whl && \
-    rm -f /tmp/llama_cpp_python.whl
+# URL疎通確認
+RUN curl -I -L "${LLAMA_WHL_URL}"
+
+# wheel ダウンロード
+RUN curl -fL -o /tmp/${LLAMA_WHL_FILE} "${LLAMA_WHL_URL}"
+
+# ダウンロード確認
+RUN ls -lh /tmp/${LLAMA_WHL_FILE}
+
+# インストール
+RUN python -m pip install "/tmp/${LLAMA_WHL_FILE}"
+
+# 後片付け
+RUN rm -f /tmp/${LLAMA_WHL_FILE}
 
 # ===== import確認 =====
 RUN python - <<'PY'
@@ -104,6 +116,10 @@ from llama_cpp.llama_chat_format import Qwen3VLChatHandler
 print("Qwen35ChatHandler OK")
 print("Qwen3VLChatHandler OK")
 PY
+
+# ===== 任意: llama-server がすでに配布バイナリである場合はここで COPY =====
+# COPY llama-server /usr/local/bin/llama-server
+# RUN chmod +x /usr/local/bin/llama-server
 
 EXPOSE 8888 8188 6006 8000
 
