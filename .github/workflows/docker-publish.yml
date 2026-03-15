@@ -7,6 +7,8 @@ on:
 
 env:
   IMAGE_NAME: paperspace-comfyui-qwen35-stable
+  LLAMA_WHL_FILE: llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl
+  LLAMA_WHL_URL: https://github.com/yumi1129/paperspace-comfyui-qwen35-stable/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl
 
 jobs:
   build-and-push:
@@ -18,6 +20,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Download llama-cpp wheel into build context
+        run: |
+          curl -fL "${LLAMA_WHL_URL}" -o "${LLAMA_WHL_FILE}"
+          ls -lh "${LLAMA_WHL_FILE}"
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
