@@ -89,7 +89,7 @@ RUN python -m pip install \
 
 # ===== llama-cpp-python 0.3.32+cu128 =====
 # ここはあなたの実際の Release asset URL に合わせてください
-ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui-qwen35-stable/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
+ARG LLAMA_WHL_URL="https://github.com/yumi1129/paperspace-comfyui_qwen3.5ggufLlma/releases/download/v1/llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
 ARG LLAMA_WHL_FILE="llama_cpp_python-0.3.32+cu128.basic-cp311-cp311-linux_x86_64.whl"
 
 # URL疎通確認
